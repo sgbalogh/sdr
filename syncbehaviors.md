@@ -1,9 +1,9 @@
 ##Sync Behaviors
 ###GeoServer data (maps-public, maps-restricted)
 
-*GeoServer home path*: `/var/lib/tomcat7/webapps/geoserver`
+**GeoServer home path**: `/var/lib/tomcat7/webapps/geoserver`
 
-*Raster data directory*: `/var/lib/rastersync` (this needs to be explicitly set in GeoServer preferences)
+**Raster data directory**: `/var/lib/rastersync` (this needs to be explicitly set in GeoServer preferences)
 
 Nightly(/weekly) actions:
 
