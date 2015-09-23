@@ -22,4 +22,15 @@ Start-up from AMI actions:
 
 ###Vector data backups (submit / RDS)
 
+###S3 Bucket destination cheatsheet (tentative)
+| Bucket Directory  | Sync Context  | Comment  |
+| ------------- |:-------------:| -----:|
+| `geospatial-assets/raster`     | Synced with local GeoServer raster data dir      |   Always sync additively; when AMI deployed, pull raster data from here 
+| `geospatial-assets/vector` |    Synced with directories from staging/scripting environment on EC2:*submit* | essentially just a backup (authority is stored in RDS PostGIS db); only WGS84 projection, SQL versions of datasets
+|`backup/maps-public`     | Complete backup of GeoServer home dir (omit datastores) |  |
+| `backup/maps-restricted`     | Complete backup of GeoServer home dir (omit datastores)      |  |
+| `logs` |    |
+| `records/omeka` |  Nightly(/weekly) updates of Omeka metadata content from SQL dumps and CSV export via [omekadd](https://github.com/wcaleb/omekadd) API client |
+| `records/geoserver` |  XML reports from nightly `curl` of GeoServer objects |
+
 
