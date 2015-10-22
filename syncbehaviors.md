@@ -1,5 +1,5 @@
-##Sync Behaviors
-###GeoServer data (maps-public, maps-restricted)
+#Sync & Backup Behaviors
+###GeoServer / raster data (`maps-public.namespace`, `maps-restricted.namespace`)
 
 **GeoServer home path**: `/var/lib/tomcat7/webapps/geoserver`
 
@@ -15,13 +15,23 @@ Nightly(/weekly) actions:
 Start-up from AMI actions:
 
 1. `aws s3 sync` (or possibly `git clone`, if private git VCS used) the corresponding GeoServer home path and raster data directory from most current state in S3
-2. `git commit -am` after sync
+2. `git commit -am 'Auto Commit, TIMESTAMP'`, `git push` after sync
 
+###Vector data backups (`submit.namespace` / RDS)
 
-###Omeka metadata (submit)
+* Originals (before reprojection or SQL conversion) can be stored in S3 bucket manually
+* RDS deployed with Amazon's redundancy features enabled
+* Monthly(?) sync with on-prem HD?
 
-###Vector data backups (submit / RDS)
+###Omeka metadata (`submit.namespace`)
+Nightly(/weekly) actions:
 
+1. SQL dump of Omeka db
+2. Generate CSV from metadata fields via API connection using [omekadd](https://github.com/wcaleb/omekadd)
+3. Replace previous nightly, `git commit -am 'Auto Commit, TIMESTAMP'`, `git push`
+4. `aws s3 sync` to metadata backup bucket
+
+----
 ###S3 Bucket destination cheatsheet (tentative)
 | Bucket Directory  | Sync Context  | Comment  |
 | ------------- |:-------------:| -----:|
